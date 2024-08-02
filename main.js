@@ -44,6 +44,7 @@ function initApp(location) {
       resolve();
     }),
     calculateSleepScore(location, calculateMoonPhase(new Date())),
+    calculateSleepiness(location),
     checkDarkMode(location)
   ]).catch(() => {
     document.getElementById('error-message').classList.remove('hidden');
@@ -51,10 +52,12 @@ function initApp(location) {
     hideLoader();
     // Initialize gauges with default values if data cannot be loaded
     updateGauge('sleep-score-chart', 50);
+    updateGauge('sleepiness-score-chart', 50);
   });
 
   // Initialize gauges with ApexCharts
   createGaugeChart('sleep-score-chart', 'Ocena warunków snu');
+  createGaugeChart('sleepiness-score-chart', 'Ocena senności');
 }
 
 function createGaugeChart(elementId, title) {
